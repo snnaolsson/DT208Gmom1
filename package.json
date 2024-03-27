@@ -1,7 +1,6 @@
 {
   "name": "mom1.2",
   "version": "1.0.0",
-  "description": "",
   "source": "src/index.html",
   "scripts": {
     "start": "parcel",
