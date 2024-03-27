@@ -1,0 +1,24 @@
+@use "variables";
+
+* {
+  padding: 0%;
+  margin: 0%;
+}
+body {
+  background-color: variables.$background;
+  color: variables.$font-color;
+  font-size: variables.$p-text;
+  width: variables.$fill;
+}
+
+//OBSERVERA!! om header och footer är lika hela tiden gör en mixin eller liknande!!!!!!!
+header {
+  background-color: variables.$accent-col;
+  width: variables.$fill;
+  text-align: center;
+}
+footer {
+  background-color: variables.$accent-col;
+  width: variables.$fill;
+  text-align: center;
+}
