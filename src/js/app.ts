@@ -1,6 +1,7 @@
 var btn = document.getElementById("addCourseBtn");
 var deleteAllBtn = document.getElementById("deleteAll");
 const courseContainer = document.getElementById("allCourses");
+const courseListEl = document.getElementById("course-list");
 //skapar variabeln courses och att den är av typen Courseinfo[] - sparar den i localstorage
 let courses: CourseInfo[] = JSON.parse(localStorage.getItem("courses") || "[]");
 console.log(courses);
@@ -68,22 +69,75 @@ function addCourse() {
   }
 }
 
+function deleteCourse(code: string) {
+  let indx = courses.findIndex((course) => course.code === code);
+  courses.splice(indx, 1);
+  localStorage.setItem("courses", JSON.stringify(courses));
+  printCourses();
+}
+
 //funktion för att skriva ut kurser till DOM
 function printCourses() {
-  while (courseContainer?.firstChild) {
-    courseContainer.removeChild(courseContainer.firstChild);
+  while (courseListEl?.firstChild) {
+    courseListEl.removeChild(courseListEl.firstChild);
   }
   for (let i = 0; i < courses.length; i++) {
-    let courseLi = document.createElement("li");
+    if (courseListEl) {
+      let coursetr = document.createElement("tr");
+      coursetr.id = `course${courses[i].code}`;
+      coursetr.innerHTML = `
+      <td contenteditable="true"> ${courses[i].name}</td >
+      <td contenteditable="true"> ${courses[i].code}</td>
+      <td contenteditable="true"> ${courses[i].progression}</td>
+      <td contenteditable="true"> ${courses[i].syllabus}</td>
+      `;
+      let deleteBtn = document.createElement("button");
+      deleteBtn.textContent = "Radera kurs";
+      deleteBtn.addEventListener("click", () => {
+        courses.splice(i, 1);
+        localStorage.setItem("courses", JSON.stringify(courses));
+        printCourses();
+      });
+      coursetr.appendChild(deleteBtn);
+
+      let updateBtn = document.createElement("button");
+      updateBtn.textContent = "Spara förändringar";
+      updateBtn.addEventListener("click", () => {});
+      coursetr.appendChild(updateBtn);
+      courseListEl.appendChild(coursetr);
+    }
+
+    /*let courseLi = document.createElement("li");
     courseLi.textContent =
       courses[i].code +
       courses[i].name +
       courses[i].progression +
       courses[i].syllabus;
+    courseLi.innerHTML = `<h4>${courses[i].name}</h4> <p><strong>Kurskod:</strong> ${courses[i].code}, <strong>Progression:</strong> ${courses[i].progression}, <strong>Kursplan:</strong> <a href="${courses[i].syllabus}">Länk till kursplan</a></p>`;
+    courseLi.className = "course-list-item";
     courseContainer?.appendChild(courseLi);
+    let deleteCourse = document.createElement("button");
+    deleteCourse.textContent = "Radera kurs";
+    courseLi.appendChild(deleteCourse);
+    let updateCourse = document.createElement("button");
+    updateCourse.textContent = "Uppdatera kurs";
+    courseLi.appendChild(updateCourse);
 
-    //courseLi.addEventListener("click", () => {});
+    deleteCourse.addEventListener("click", () => {
+      courses.splice(i, 1);
+      localStorage.setItem("courses", JSON.stringify(courses));
+      printCourses();
+    });
+    updateCourse.addEventListener("click", () => {
+      let obj = courses.findIndex((course) => course.code == courses[i].code);
+      courses[obj].code = newCode;
+    });*/
   }
 }
 
 //funktion för att uppdatera kurs
+//Lägg till knappar för att ändra och radera här ovan där kurserna skrivs ut
+//vid klick så kör funktionen updateCourse med kurskod eller dyl och skicka med kurskod som parameter
+//för att kunna ändra i arrayen och skicka sedan om till localstorage
+
+function updateCourse() {}
