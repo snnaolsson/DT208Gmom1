@@ -4,7 +4,7 @@ const courseContainer = document.getElementById("allCourses");
 const courseListEl = document.getElementById("course-list");
 //skapar variabeln courses och att den är av typen Courseinfo[] - sparar den i localstorage
 let courses: CourseInfo[] = JSON.parse(localStorage.getItem("courses") || "[]");
-console.log(courses);
+
 //sätter eventlistener till knapp som kör funktionen addcourse
 btn?.addEventListener("click", addCourse);
 
