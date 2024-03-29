@@ -10,15 +10,80 @@ body {
   font-size: variables.$p-text;
   width: variables.$fill;
 }
+main {
+  width: 60%;
+  margin: auto;
+  margin-bottom: variables.$margin-bottom;
 
-//OBSERVERA!! om header och footer är lika hela tiden gör en mixin eller liknande!!!!!!!
-header {
+  h2 {
+    text-align: center;
+  }
+
+  table {
+    margin: auto;
+    background-color: #dedfe1;
+    border-collapse: collapse;
+
+    td {
+      padding: 10px;
+      padding-bottom: 5%;
+      border-bottom: solid #d0d3da;
+    }
+  }
+}
+@mixin buttonStyle {
+  margin: 2%;
+  padding: 2px;
+}
+button {
+  @include buttonStyle();
+  &#addCourseBtn {
+    font-weight: bold;
+  }
+}
+
+#courseList {
+  background-color: variables.$background-element;
+  margin-top: 5%;
+  margin-bottom: 5%;
+  padding-bottom: variables.$padding-borders;
+}
+#addCourses {
+  margin: auto;
+  margin-bottom: 5%;
+  background-color: variables.$background-element;
+  padding: 5%;
+}
+
+@mixin head-and-foot {
   background-color: variables.$accent-col;
   width: variables.$fill;
   text-align: center;
+  padding-bottom: variables.$padding-borders;
+  padding-top: variables.$padding-borders;
+}
+
+header {
+  @include head-and-foot();
+  margin-bottom: variables.$margin-bottom;
 }
 footer {
-  background-color: variables.$accent-col;
-  width: variables.$fill;
-  text-align: center;
+  @include head-and-foot();
+  margin-top: variables.$margin-bottom;
+}
+
+@media screen and (max-width: 767px) {
+  body {
+    width: variables.$fill;
+    margin: auto;
+  }
+  main {
+    width: variables.$fill;
+    table {
+      td {
+        padding: 0%;
+        width: 30px;
+      }
+    }
+  }
 }
